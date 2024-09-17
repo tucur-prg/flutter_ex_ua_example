@@ -38,6 +38,14 @@ class MainActivity: FlutterActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        println("LOGGING:onActivityResult")
+        println("LOGGING:request = %d, result = %d".format(requestCode, resultCode))
+        println(data)
+    }
+
     // Custom url Scheme
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
