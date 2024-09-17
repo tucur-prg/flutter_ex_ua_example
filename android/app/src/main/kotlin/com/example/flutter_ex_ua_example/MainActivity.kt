@@ -38,6 +38,7 @@ class MainActivity: FlutterActivity() {
         }
     }
 
+    // Custom url Scheme
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
