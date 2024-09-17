@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'browser.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -26,12 +28,6 @@ class _MyHomePageState extends State<MyHomePage> {
       final resultText = await channel.invokeMethod('hello');
       debugPrint(resultText);
     }
-    Future<void> launch() async {
-      const channel = MethodChannel('Channel');
-      final resultText = await channel.invokeMethod('launch');
-      debugPrint("call launch");
-      debugPrint(resultText);
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -54,8 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () async => getHello(),
             ),
             ElevatedButton(
-              child: const Text("browser"),
-              onPressed: () async => launch(),
+              child: const Text("next"),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const BrowserPage(),
+                  )
+                );
+
+              },
             ),
           ],
         ),
