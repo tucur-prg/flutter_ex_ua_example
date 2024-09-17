@@ -26,6 +26,12 @@ class _MyHomePageState extends State<MyHomePage> {
       final resultText = await channel.invokeMethod('hello');
       debugPrint(resultText);
     }
+    Future<void> launch() async {
+      const channel = MethodChannel('Channel');
+      final resultText = await channel.invokeMethod('launch');
+      debugPrint("call launch");
+      debugPrint(resultText);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -43,9 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            TextButton(
+            ElevatedButton(
               child: const Text("hello"),
               onPressed: () async => getHello(),
+            ),
+            ElevatedButton(
+              child: const Text("browser"),
+              onPressed: () async => launch(),
             ),
           ],
         ),
