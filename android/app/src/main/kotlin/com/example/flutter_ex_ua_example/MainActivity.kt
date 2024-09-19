@@ -1,6 +1,7 @@
 package com.example.flutter_ex_ua_example
 
 import android.content.Intent
+import android.os.Bundle
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import io.flutter.embedding.android.FlutterActivity
@@ -8,10 +9,12 @@ import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
-    public lateinit var completion: MethodChannel.Result
+    private var completion: MethodChannel.Result? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+
+        println("LOGGING:configureFlutterEngine")
 
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
@@ -46,6 +49,18 @@ class MainActivity: FlutterActivity() {
         println(data)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        println("LOGGING:savedInstanceState")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        println("LOGGING:onDestroy")
+    }
+
     // Custom url Scheme
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -53,8 +68,14 @@ class MainActivity: FlutterActivity() {
         val action: String? = intent?.action
         val data: Uri? = intent?.data
 
-        println("LOGGING:custom scheme open")
+        println("LOGGING:onNewIntent")
         println(data)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        println("LOGGING:onPause")
     }
 
     override fun onResume() {
@@ -62,8 +83,22 @@ class MainActivity: FlutterActivity() {
 
         println("LOGGING:onResume")
 
-        if (::completion.isInitialized) {
-            completion.success("finish")
+        val result = completion;
+        if (result != null) {
+            result.success("finish")
+            completion = null
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+
+        println("LOGGING:onStart")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        println("LOGGING:onStop")
+    }  
 }
